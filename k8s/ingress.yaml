@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  namespace: default
+  annotations:
+    # This tells K3s/Traefik strictly how to handle traffic
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-service
+                port:
+                  number: 80
