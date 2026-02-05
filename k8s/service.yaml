@@ -6,8 +6,9 @@ metadata:
 spec:
   selector:
     app: my-app
+  type: NodePort
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: ClusterIP
+      nodePort: 8181
