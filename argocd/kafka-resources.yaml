@@ -1,23 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-example-project
+  name: kafka-resources
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/TFWulp-Levarne/ArgoCD-example-project.git
     targetRevision: HEAD
-    path: k8s
+    path: infrastructure/kafka
+    directory:
+      recurse: true # Important to pick up subfolders (cluster, topics)
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: kafka
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
+    syncOptions:
+      - CreateNamespace=true
