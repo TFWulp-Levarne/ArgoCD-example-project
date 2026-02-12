@@ -1,0 +1,23 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: my-cluster
+  namespace: kafka
+spec:
+  kafka:
+    version: 3.6.0
+    replicas: 1  # Start small for testing
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+    storage:
+      type: ephemeral # Use 'ephemeral' to avoid PVC hanging issues during first test
+  zookeeper:
+    replicas: 1
+    storage:
+      type: ephemeral
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}

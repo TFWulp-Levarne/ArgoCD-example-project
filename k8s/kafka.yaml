@@ -1,22 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kafka-resources
-  namespace: argocd
+  name: kafka-infra
+  namespace: argocd  # The Application resource itself lives in argocd namespace
 spec:
   project: default
   source:
     repoURL: https://github.com/TFWulp-Levarne/ArgoCD-example-project.git
     targetRevision: HEAD
-    path: infrastructure/kafka
-    directory:
-      recurse: true # Important to pick up subfolders (cluster, topics)
+    path: infrastructure/kafka  # <--- Points to your new unrelated folder
   destination:
     server: https://kubernetes.default.svc
-    namespace: kafka
+    namespace: kafka            # <--- Deploys the actual Kafka pods here
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=true    # <--- Creates the 'kafka' namespace automatically
