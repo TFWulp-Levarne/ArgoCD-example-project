@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/TFWulp-Levarne/ArgoCD-example-project.git
     targetRevision: HEAD
     path: infrastructure/kafka  # <--- Points to your new unrelated folder
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka            # <--- Deploys the actual Kafka pods here
