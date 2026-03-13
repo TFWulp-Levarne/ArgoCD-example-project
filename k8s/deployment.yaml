@@ -29,5 +29,5 @@ spec:
             - name: TEST_STRING # The name of the environment variable your code expects
               valueFrom:
                 secretKeyRef:
-                  name: my-app-db-secret # The exact name of the Secret ESO created
+                  name: ssm-parameters # The exact name of the Secret ESO created
                   key: test_string          # The specific key inside that Secret
