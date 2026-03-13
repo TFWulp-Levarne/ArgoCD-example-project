@@ -1,0 +1,17 @@
+apiVersion: generators.external-secrets.io/v1
+kind: ECRAuthorizationToken
+metadata:
+  name: ecr-token-generator
+  namespace: default
+spec:
+  region: eu-west-1 # Make sure this matches your ECR region!
+  auth:
+    # Generators don't use your ClusterSecretStore, so we point
+    # it directly to the root credential secret we made with Ansible
+    secretRef:
+      accessKeyIDSecretRef:
+        name: aws-secret-creds
+        key: access-key
+      secretAccessKeySecretRef:
+        name: aws-secret-creds
+        key: secret-access-key
