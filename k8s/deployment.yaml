@@ -14,11 +14,14 @@ spec:
       labels:
         app: my-app
     spec:
+      imagePullSecrets:
+        - name: ecr-registry-secret
       containers:
-        - name: nginx
-          image: nginx:latest
+        - name: nuxt-app
+          image: 203196628570.dkr.ecr.eu-west-1.amazonaws.com/kubernetes/test:latest
+
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           resources:
             requests:
               cpu: "100m"      # "I need at least 10% of a CPU core to start"
