@@ -18,7 +18,6 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
-          # --- ADD THIS BLOCK ---
           resources:
             requests:
               cpu: "100m"      # "I need at least 10% of a CPU core to start"
@@ -26,4 +25,9 @@ spec:
             limits:
               cpu: "500m"      # "Don't let me use more than 50% of a core"
               memory: "128Mi"
-          # ----------------------
+          env:
+            - name: TEST_STRING # The name of the environment variable your code expects
+              valueFrom:
+                secretKeyRef:
+                  name: my-app-db-secret # The exact name of the Secret ESO created
+                  key: test_string          # The specific key inside that Secret
